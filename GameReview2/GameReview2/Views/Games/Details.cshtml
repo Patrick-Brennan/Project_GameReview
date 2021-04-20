@@ -1,0 +1,33 @@
+﻿@using GameReview2.Helpers
+@model GameReview2.ViewModels.GameViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <div class="text-center">
+        @Html.GetThumbnail(Model.PhotoDB, 260, 360)
+    </div>
+    <br />
+    <div class="dl-horizontal text-left">
+        <dt>
+            @Html.DisplayName("Title: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+    </div>
+    <div>
+        @Html.Partial("_GameInfo", Model.GameInfo)
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.GameId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

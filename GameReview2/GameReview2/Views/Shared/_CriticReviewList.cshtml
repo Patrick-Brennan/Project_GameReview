@@ -1,0 +1,79 @@
+﻿@using PagedList.Mvc
+@using GameReview2.Helpers
+
+@model PagedList.IPagedList<GameReview2.Models.CriticReview>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Photo")
+        </th>
+        <th>
+            @Html.ActionLink("Title", "Index", new { sortOrder = "title", sortDir = string.IsNullOrEmpty(ViewBag.sortDir) ? "asc" : (ViewBag.sortDir == "asc" ? "desc" : "asc"), searchString = ViewBag.CurrentFilter })
+            @Html.GetArrow((string)ViewBag.sortOrder, "title", (string)ViewBag.sortDir)
+        </th>
+        <th>
+            @Html.ActionLink("Critic's Name", "Index", new { sortOrder = "name", sortDir = string.IsNullOrEmpty(ViewBag.sortDir) ? "asc" : (ViewBag.sortDir == "asc" ? "desc" : "asc"), searchString = ViewBag.CurrentFilter })
+            @Html.GetArrow((string)ViewBag.sortOrder, "name", (string)ViewBag.sortDir)
+        </th>
+        <th>
+            @Html.DisplayName("Creation Date")
+        </th>
+        <th>
+            @Html.DisplayName("Latest Update")
+        </th>
+        <th>
+            @Html.ActionLink("Score", "Index", new { sortOrder = "score", sortDir = string.IsNullOrEmpty(ViewBag.sortDir) ? "asc" : (ViewBag.sortDir == "asc" ? "desc" : "asc"), searchString = ViewBag.CurrentFilter })
+            @Html.GetArrow((string)ViewBag.sortOrder, "score", (string)ViewBag.sortDir)
+        </th>
+        <th>
+            @Html.DisplayName("Review")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.Game.Photo != null)
+                {
+                    @Html.GetThumbnail(item.Game.Photo, 65, 90)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Game.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriticFullName)
+            </td>
+            <td>
+                @item.CriticCreatedOn.ToShortDateString()
+            </td>
+            <td>
+                @item.CriticUpdatedOn.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriticScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriticRev)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CriticReviewId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CriticReviewId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CriticReviewId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(
+            Model,
+            page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.SortOrder, sortDir = ViewBag.SortDir, currentFilter = ViewBag.CurrentFilter }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "grid" })
+        )

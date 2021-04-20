@@ -1,0 +1,67 @@
+﻿@model GameReview2.Models.UserReview
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserReview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserCreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserCreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserUpdatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserUpdatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRev)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserReviewId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

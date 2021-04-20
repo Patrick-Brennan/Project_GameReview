@@ -1,0 +1,99 @@
+﻿@using GameReview2.Helpers
+@model PagedList.IPagedList<GameReview2.Models.CriticReview>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Critic Reviews</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="row">
+    <div class="col-md-3">
+        @using (Ajax.BeginForm("Index", "CriticReviews", new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "grid"
+        }))
+        {
+            <div class="input-group-addon">
+                <input class="form-control"
+                       placeholder="Game Title" name="searchString"
+                       type="text" value="@ViewBag.CurrentFilter" />
+                <div class="input-group-addon">
+                    <button class="btn btn-default" type="submit">Filter</button>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Game.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriticFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriticCreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriticUpdatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriticScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriticRev)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @if (item.Game.Photo != null)
+        {
+            @Html.GetThumbnail(item.Game.Photo)
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Game.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CriticFullName)
+    </td>
+    <td>
+        @item.CriticCreatedOn.ToShortDateString()
+    </td>
+    <td>
+        @item.CriticUpdatedOn.ToShortDateString()
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CriticScore)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CriticRev)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.CriticReviewId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.CriticReviewId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.CriticReviewId })
+    </td>
+</tr>
+}
+
+</table>*@
+
+<div id="grid">
+    @Html.Partial("_CriticReviewList", Model)
+</div>

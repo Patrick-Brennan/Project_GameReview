@@ -1,0 +1,67 @@
+﻿@model GameReview2.Models.CriticReview
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CriticReview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticCreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticCreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticUpdatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticUpdatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticRev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticRev)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CriticReviewId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

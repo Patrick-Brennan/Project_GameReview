@@ -1,0 +1,73 @@
+﻿@model GameReview2.Models.CriticReview
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CriticReview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticCreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticCreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticUpdatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticUpdatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CriticRev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CriticRev)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

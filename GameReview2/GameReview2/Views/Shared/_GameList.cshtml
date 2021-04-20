@@ -1,0 +1,87 @@
+﻿@using PagedList.Mvc
+@using GameReview2.Helpers
+
+@model PagedList.IPagedList<GameReview2.Models.Game>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Photo")
+        </th>
+        <th>
+            @Html.ActionLink("Title", "Index", new { sortOrder = "title", sortDir = string.IsNullOrEmpty(ViewBag.sortDir) ? "asc" : (ViewBag.sortDir == "asc" ? "desc" : "asc"), searchString = ViewBag.CurrentFilter })
+            @Html.GetArrow((string)ViewBag.sortOrder, "title", (string)ViewBag.sortDir)
+        </th>
+        <th>
+            @Html.DisplayName("Game Info")
+        </th>
+        <th>
+            @Html.DisplayName("Summary")
+        </th>
+        @*<th>
+            @Html.ActionLink("Critic's Average Score", "Index", new { sortOrder = "criticScoreAvg", sortDir = string.IsNullOrEmpty(ViewBag.sortDir) ? "asc" : (ViewBag.sortDir == "asc" ? "desc" : "asc"), searchString = ViewBag.CurrentFilter })
+            @Html.GetArrow((string)ViewBag.sortOrder, "criticScoreAvg", (string)ViewBag.sortDir)
+        </th>
+        <th>
+            @Html.ActionLink("User's Average Score", "Index", new { sortOrder = "userScoreAvg", sortDir = string.IsNullOrEmpty(ViewBag.sortDir) ? "asc" : (ViewBag.sortDir == "asc" ? "desc" : "asc"), searchString = ViewBag.CurrentFilter })
+            @Html.GetArrow((string)ViewBag.sortOrder, "userScoreAvg", (string)ViewBag.sortDir)
+        </th>
+        <th>
+            @Html.DisplayName("Critic Reviews")
+        </th>
+        <th>
+            @Html.DisplayName("User Reviews")
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @if (item.Photo != null)
+        {
+            @Html.GetThumbnail(item.Photo, 130, 180)
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        <b>@Html.DisplayName("Rating: ")</b>
+        @Html.DisplayFor(modelItem => item.GameInfo.Rating)
+        <br />
+        <b>@Html.DisplayName("Genre: ")</b>
+        @Html.DisplayFor(modelItem => item.GameInfo.Genre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Summary)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.CriticScoreAvg)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserScoreAvg)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CriticReviewCount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserReviewCount)
+    </td>*@
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.GameId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.GameId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.GameId })
+    </td>
+</tr>}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(
+            Model,
+            page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.SortOrder, sortDir = ViewBag.SortDir, currentFilter = ViewBag.CurrentFilter }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "grid" })
+        )

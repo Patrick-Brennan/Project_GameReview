@@ -1,0 +1,38 @@
+﻿@using GameReview2.Helpers
+@model PagedList.IPagedList<GameReview2.Models.UserReview>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>User Reviews</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="row">
+    <div class="col-md-3">
+        @using (Ajax.BeginForm("Index", "UserReviews", new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "grid"
+        }))
+        {
+            <div class="input-group-addon">
+                <input class="form-control"
+                       placeholder="Game Title" name="searchString"
+                       type="text" value="@ViewBag.CurrentFilter" />
+                <div class="input-group-addon">
+                    <button class="btn btn-default" type="submit">Filter</button>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+<div id="grid">
+    @Html.Partial("_UserReviewList", Model)
+</div>
